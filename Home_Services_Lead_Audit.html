@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Home Services Lead Audit — Uman Zafar</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080A0F;
+    --surface: #0F1218;
+    --card: #141820;
+    --border: #1E2430;
+    --orange: #E85D04;
+    --orange-dim: #7A3102;
+    --white: #F5F7FA;
+    --grey: #8A94A6;
+    --green: #10B981;
+    --red: #EF4444;
+    --amber: #F59E0B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(232,93,4,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,93,4,0.03) 1px, transparent 1px);
+    background-size: 54px 54px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--orange);
+    padding: 48px 40px 40px;
+    margin: 40px 0 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    right: -60px;
+    width: 200px;
+    height: 200px;
+    border: 40px solid rgba(232,93,4,0.06);
+    border-radius: 50%;
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--orange-dim);
+    color: var(--orange);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 5px 14px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 6vw, 56px);
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .hero h1 span { color: var(--orange); }
+
+  .hero p {
+    color: var(--grey);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 480px;
+    margin-top: 16px;
+  }
+
+  .by-line {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .by-line .dot {
+    width: 40px;
+    height: 40px;
+    background: var(--orange);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .by-line .name { font-weight: 500; font-size: 14px; }
+  .by-line .title { color: var(--grey); font-size: 12px; margin-top: 2px; }
+
+  .score-guide {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+  }
+
+  .score-item {
+    background: var(--card);
+    padding: 16px;
+    text-align: center;
+  }
+
+  .score-item .pts {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    display: block;
+  }
+
+  .score-item .label {
+    font-size: 11px;
+    color: var(--grey);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .score-item:nth-child(1) .pts { color: var(--green); }
+  .score-item:nth-child(2) .pts { color: var(--amber); }
+  .score-item:nth-child(3) .pts { color: var(--red); }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .question-card:hover { border-color: rgba(232,93,4,0.3); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 20px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .q-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--orange);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 36px;
+  }
+
+  .q-content { flex: 1; }
+
+  .q-category {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 6px;
+  }
+
+  .q-text {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--white);
+  }
+
+  .q-hint {
+    font-size: 12px;
+    color: var(--grey);
+    margin-top: 6px;
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .options { padding: 12px 20px 16px; }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .option:hover {
+    background: rgba(232,93,4,0.05);
+    border-color: rgba(232,93,4,0.2);
+  }
+
+  .option input[type="radio"] { display: none; }
+
+  .option-dot {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: all 0.15s;
+    position: relative;
+  }
+
+  .option input:checked ~ .option-dot {
+    border-color: var(--orange);
+    background: var(--orange);
+  }
+
+  .option input:checked ~ .option-dot::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: white;
+    border-radius: 50%;
+  }
+
+  .option-text { font-size: 13px; color: var(--grey); flex: 1; }
+  .option input:checked ~ .option-dot ~ .option-text { color: var(--white); }
+
+  .option-pts {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--grey);
+  }
+
+  .opt-2 .option-pts { color: var(--green); }
+  .opt-1 .option-pts { color: var(--amber); }
+  .opt-0 .option-pts { color: var(--red); }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--orange);
+    color: white;
+    border: none;
+    padding: 18px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: background 0.2s;
+  }
+
+  .submit-btn:hover { background: #C44E02; }
+
+  .results {
+    display: none;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .results.show { display: block; }
+
+  .score-display {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--orange);
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .score-big {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 100px;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--orange);
+  }
+
+  .score-label {
+    font-size: 14px;
+    color: var(--grey);
+    margin-top: 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .score-verdict {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    margin-top: 20px;
+    text-transform: uppercase;
+  }
+
+  .score-desc {
+    color: var(--grey);
+    font-size: 14px;
+    margin-top: 10px;
+    line-height: 1.6;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .result-levels { margin-bottom: 24px; }
+
+  .level {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+    background: var(--card);
+  }
+
+  .level.active {
+    border-color: var(--orange);
+    background: rgba(232,93,4,0.08);
+  }
+
+  .level-range {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    width: 60px;
+    flex-shrink: 0;
+  }
+
+  .level-info { flex: 1; }
+  .level-title { font-weight: 600; font-size: 14px; }
+  .level-desc { font-size: 12px; color: var(--grey); margin-top: 3px; }
+
+  .level-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  .level.active .level-indicator { background: var(--orange); }
+
+  .cta-box {
+    background: var(--card);
+    border: 1px solid var(--orange);
+    padding: 32px;
+    text-align: center;
+  }
+
+  .cta-box h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .cta-box p {
+    color: var(--grey);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .cta-email {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    padding: 14px 32px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s;
+  }
+
+  .cta-email:hover { background: #C44E02; }
+
+  .cta-sub {
+    font-size: 12px;
+    color: var(--grey);
+    margin-top: 14px;
+  }
+
+  .cta-sub a {
+    color: var(--orange);
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s;
+  }
+
+  .cta-sub a:hover { opacity: 0.8; text-decoration: underline; }
+
+  .progress-bar {
+    height: 3px;
+    background: var(--border);
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--orange);
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+
+  .progress-text {
+    font-size: 12px;
+    color: var(--grey);
+    text-align: right;
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="hero">
+    <div class="badge">Free Lead System Audit</div>
+    <h1>Is Your Home Services Business <span>Leaking Jobs</span> Every Month?</h1>
+    <p>Answer 10 honest questions about your lead process. Find out exactly where you are losing jobs — and what to fix first.</p>
+    <div class="by-line">
+      <div class="dot">UZ</div>
+      <div>
+        <div class="name">Uman Zafar</div>
+        <div class="title">AI Lead Gen Specialist — Home Improvement Businesses</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">How to score</div>
+  <div class="score-guide" style="margin-bottom:32px">
+    <div class="score-item"><span class="pts">2</span><div class="label">Fully in place</div></div>
+    <div class="score-item"><span class="pts">1</span><div class="label">Partially works</div></div>
+    <div class="score-item"><span class="pts">0</span><div class="label">Not in place</div></div>
+  </div>
+
+  <div id="audit-form">
+    <div class="section-title">The 10 Questions</div>
+
+    <div class="progress-text" id="progress-text">0 of 10 answered</div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+    <div id="questions"></div>
+
+    <button class="submit-btn" onclick="showResults()">See My Results</button>
+  </div>
+
+  <div class="results" id="results">
+    <div class="score-display">
+      <div class="score-big" id="final-score">0</div>
+      <div class="score-label">out of 20 points</div>
+      <div class="score-verdict" id="verdict"></div>
+      <div class="score-desc" id="verdict-desc"></div>
+    </div>
+
+    <div class="section-title">Score Breakdown</div>
+    <div class="result-levels" id="result-levels"></div>
+
+    <div class="cta-box">
+      <h3>Ready to Fix Your Lead System?</h3>
+      <p>Book a free 15 minute call. I will look at your audit answers and show you exactly what to fix first. No pitch. Just honest advice.</p>
+      <a href="mailto:umanzafar174@gmail.com?subject=Free Lead System Audit Call" class="cta-email">Book My Free Call</a>
+      <div class="cta-sub">Or connect with me on LinkedIn — <a href="https://www.linkedin.com/in/umanzafar?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer">Uman Zafar</a></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  {
+    num: "01",
+    category: "Response Speed",
+    text: "When a new lead comes in — do you contact them within 5 minutes?",
+    hint: "Leads contacted within 5 minutes are 9x more likely to convert. Most home service businesses reply hours later.",
+    options: [
+      "Yes — automated response fires instantly",
+      "Partially — we try but depends on time of day",
+      "No — we reply when we get a chance"
+    ]
+  },
+  {
+    num: "02",
+    category: "After Hours Coverage",
+    text: "When a lead comes in at 9pm or on weekends — does your system still respond?",
+    hint: "Most homeowners search for services in the evenings and weekends — outside your business hours.",
+    options: [
+      "Yes — fully automated 24/7",
+      "Partially — someone sometimes checks messages",
+      "No — we only respond during business hours"
+    ]
+  },
+  {
+    num: "03",
+    category: "Lead Qualification",
+    text: "Do you filter serious homeowners from time-wasters before your team speaks to them?",
+    hint: "Without qualification your team wastes hours chasing people who were just comparing prices.",
+    options: [
+      "Yes — leads are qualified automatically before we call",
+      "Partially — we ask a few questions manually",
+      "No — we speak to every lead that comes in"
+    ]
+  },
+  {
+    num: "04",
+    category: "Follow Up Sequence",
+    text: "If a lead does not answer your first call — do you have an automatic follow up that tries again?",
+    hint: "80% of sales happen after the 5th follow up. Most home service businesses stop after one attempt.",
+    options: [
+      "Yes — automated SMS and email follow up runs automatically",
+      "Partially — we sometimes follow up manually",
+      "No — if they don't answer we move on"
+    ]
+  },
+  {
+    num: "05",
+    category: "CRM Pipeline",
+    text: "Do you track every lead in a CRM with clear stages from new lead to closed job?",
+    hint: "Without a pipeline you cannot see where leads are dropping off. You cannot fix what you cannot see.",
+    options: [
+      "Yes — full CRM with pipeline stages",
+      "Partially — we use a spreadsheet or basic system",
+      "No — we track leads informally"
+    ]
+  },
+  {
+    num: "06",
+    category: "Lead Source Tracking",
+    text: "Do you know exactly which marketing channel is generating your best quality leads?",
+    hint: "If you don't know which source brings the best leads you cannot invest your budget in the right place.",
+    options: [
+      "Yes — we track every lead back to its source",
+      "Partially — we have a rough idea",
+      "No — we are not sure where most leads come from"
+    ]
+  },
+  {
+    num: "07",
+    category: "Landing Page Quality",
+    text: "When someone clicks your ad — does your landing page build trust and capture their details?",
+    hint: "A weak landing page wastes your ad budget before the lead even reaches you.",
+    options: [
+      "Yes — optimised landing page with clear offer and form",
+      "Partially — we have a website but it is basic",
+      "No — we send traffic to a general website page"
+    ]
+  },
+  {
+    num: "08",
+    category: "Message Personalisation",
+    text: "Does your follow up communication feel personal and relevant to the homeowner's specific problem?",
+    hint: "Generic automated messages that sound like templates destroy trust instantly. Homeowners ignore them.",
+    options: [
+      "Yes — messages are personalised and feel human",
+      "Partially — we try but it is mostly templated",
+      "No — we use the same message for everyone"
+    ]
+  },
+  {
+    num: "09",
+    category: "Appointment Booking",
+    text: "Can a homeowner book a survey or consultation directly without having to call you first?",
+    hint: "Every extra step between interest and booking costs you leads. Friction kills conversions.",
+    options: [
+      "Yes — online booking available 24/7",
+      "Partially — we are working on this",
+      "No — they have to call us to book"
+    ]
+  },
+  {
+    num: "10",
+    category: "Review System",
+    text: "Do you have an automated system that asks happy customers to leave a Google review after every job?",
+    hint: "Homeowners check reviews before contacting any tradesperson. A weak review profile costs you leads before they reach you.",
+    options: [
+      "Yes — automated review request goes out after every job",
+      "Partially — we sometimes ask manually",
+      "No — we rely on customers to leave reviews themselves"
+    ]
+  }
+];
+
+const levels = [
+  { range: "18–20", title: "Strong System", desc: "Your lead system is working well. Small optimisations can push your conversion rate even higher.", min: 18, max: 20 },
+  { range: "12–17", title: "Room to Grow", desc: "Your system has gaps costing you jobs. Fixing 2 to 3 areas could significantly increase your revenue.", min: 12, max: 17 },
+  { range: "6–11",  title: "Serious Leaks", desc: "You are losing a significant number of leads every month. A proper system could double your conversion rate.", min: 6, max: 11 },
+  { range: "0–5",   title: "Critical Issues", desc: "Your current process is costing you serious money. Most of your leads are going to competitors with better systems.", min: 0, max: 5 },
+];
+
+function buildQuestions() {
+  const container = document.getElementById('questions');
+  questions.forEach((q, qi) => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.style.animationDelay = (qi * 0.05 + 0.1) + 's';
+
+    const pts = [2, 1, 0];
+    const optClasses = ['opt-2', 'opt-1', 'opt-0'];
+
+    card.innerHTML = `
+      <div class="q-header">
+        <div class="q-num">${q.num}</div>
+        <div class="q-content">
+          <div class="q-category">${q.category}</div>
+          <div class="q-text">${q.text}</div>
+          <div class="q-hint">${q.hint}</div>
+        </div>
+      </div>
+      <div class="options">
+        ${q.options.map((opt, oi) => `
+          <label class="option ${optClasses[oi]}">
+            <input type="radio" name="q${qi}" value="${pts[oi]}" onchange="updateProgress()">
+            <div class="option-dot"></div>
+            <div class="option-text">${opt}</div>
+            <div class="option-pts">${pts[oi]} pts</div>
+          </label>
+        `).join('')}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function updateProgress() {
+  const answered = questions.filter((_, i) =>
+    document.querySelector(`input[name="q${i}"]:checked`)
+  ).length;
+  document.getElementById('progress-text').textContent = `${answered} of 10 answered`;
+  document.getElementById('progress-fill').style.width = (answered / 10 * 100) + '%';
+}
+
+function showResults() {
+  let score = 0;
+  let allAnswered = true;
+
+  questions.forEach((_, i) => {
+    const checked = document.querySelector(`input[name="q${i}"]:checked`);
+    if (checked) score += parseInt(checked.value);
+    else allAnswered = false;
+  });
+
+  if (!allAnswered) {
+    alert('Please answer all 10 questions first.');
+    return;
+  }
+
+  document.getElementById('audit-form').style.display = 'none';
+
+  const level = levels.find(l => score >= l.min && score <= l.max);
+  document.getElementById('final-score').textContent = score;
+  document.getElementById('verdict').textContent = level.title;
+  document.getElementById('verdict-desc').textContent = level.desc;
+
+  const levelsContainer = document.getElementById('result-levels');
+  levels.forEach(l => {
+    const div = document.createElement('div');
+    div.className = 'level' + (l === level ? ' active' : '');
+    div.innerHTML = `
+      <div class="level-range">${l.range}</div>
+      <div class="level-info">
+        <div class="level-title">${l.title}</div>
+        <div class="level-desc">${l.desc}</div>
+      </div>
+      <div class="level-indicator"></div>
+    `;
+    levelsContainer.appendChild(div);
+  });
+
+  const results = document.getElementById('results');
+  results.classList.add('show');
+  results.scrollIntoView({ behavior: 'smooth' });
+}
+
+buildQuestions();
+</script>
+</body>
+</html>
