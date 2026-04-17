@@ -68,8 +68,6 @@
   .submit-btn:hover { background: #C44E02; }
   .results { display: none; animation: fadeUp 0.5s ease both; }
   .results.show { display: block; }
-
-  /* EMAIL GATE */
   .email-gate { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--orange); padding: 40px; text-align: center; margin-bottom: 24px; display: none; }
   .email-gate.show { display: block; }
   .email-gate h2 { font-family: "Barlow Condensed", sans-serif; font-size: 32px; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; }
@@ -82,7 +80,6 @@
   .gate-btn { width: 100%; background: var(--orange); color: white; border: none; padding: 16px; font-family: "Barlow Condensed", sans-serif; font-size: 20px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; margin-top: 8px; transition: background 0.2s; }
   .gate-btn:hover { background: #C44E02; }
   .gate-note { font-size: 11px; color: var(--grey); margin-top: 12px; }
-
   .score-display { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--orange); padding: 40px; text-align: center; margin-bottom: 24px; }
   .score-big { font-family: "Barlow Condensed", sans-serif; font-size: 100px; font-weight: 900; line-height: 1; color: var(--orange); }
   .score-label { font-size: 14px; color: var(--grey); margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; }
@@ -126,14 +123,13 @@
     </div>
   </div>
 
-  <div class="section-title">How to score</div>
-  <div class="score-guide" style="margin-bottom:32px">
-    <div class="score-item"><span class="pts">2</span><div class="label">Fully in place</div></div>
-    <div class="score-item"><span class="pts">1</span><div class="label">Partially works</div></div>
-    <div class="score-item"><span class="pts">0</span><div class="label">Not in place</div></div>
-  </div>
-
   <div id="audit-form">
+    <div class="section-title">How to score</div>
+    <div class="score-guide" style="margin-bottom:32px">
+      <div class="score-item"><span class="pts">2</span><div class="label">Fully in place</div></div>
+      <div class="score-item"><span class="pts">1</span><div class="label">Partially works</div></div>
+      <div class="score-item"><span class="pts">0</span><div class="label">Not in place</div></div>
+    </div>
     <div class="section-title">The 10 Questions</div>
     <div class="progress-text" id="progress-text">0 of 10 answered</div>
     <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
@@ -141,7 +137,6 @@
     <button class="submit-btn" onclick="showEmailGate()">See My Results</button>
   </div>
 
-  <!-- EMAIL GATE -->
   <div class="email-gate" id="email-gate">
     <h2>One Last Step</h2>
     <p>Enter your name and email to see your results. I will also send you a personalised breakdown with exactly what to fix first.</p>
@@ -181,10 +176,7 @@
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
-
 const questions = [
   { num:"01", category:"Response Speed", text:"When a new lead comes in — do you contact them within 5 minutes?", hint:"Leads contacted within 5 minutes are 9x more likely to convert. Most home service businesses reply hours later.", options:["Yes — automated response fires instantly","Partially — we try but depends on time of day","No — we reply when we get a chance"] },
   { num:"02", category:"After Hours Coverage", text:"When a lead comes in at 9pm or on weekends — does your system still respond?", hint:"Most homeowners search for services in the evenings and weekends — outside your business hours.", options:["Yes — fully automated 24/7","Partially — someone sometimes checks messages","No — we only respond during business hours"] },
@@ -271,17 +263,16 @@ function submitGate() {
 
   document.getElementById("sending-msg").style.display = "block";
 
-  emailjs.send("service_umanzafar", "template_audit", {
-    to_email: "umanzafar174@gmail.com",
-    from_name: name,
-    from_email: email,
-    business_name: business || "Not provided",
-    score: finalScore + " out of 20",
-    verdict: level.title,
-    verdict_desc: level.desc
-  }).then(() => {
-    showResults(level);
-  }).catch(() => {
+  fetch("https://script.google.com/macros/s/AKfycbxi9ZgQK43wOfdtq52lc5fnvQJJ-M4PlZoYKUpgKBEIUVvM9V3yxmcCWfn-dMjvo9lx/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      name: name,
+      email: email,
+      business: business || "Not provided",
+      score: finalScore + "/20",
+      verdict: level.title
+    })
+  }).finally(() => {
     showResults(level);
   });
 }
@@ -293,6 +284,8 @@ function showResults(level) {
   document.getElementById("verdict-desc").textContent = level.desc;
 
   const levelsContainer = document.getElementById("result-levels");
+  levelsContainer.innerHTML = "";
+
   levels.forEach(l => {
     const div = document.createElement("div");
     div.className = "level" + (l === level ? " active" : "");
