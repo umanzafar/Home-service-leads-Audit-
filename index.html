@@ -3,1287 +3,308 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roofing Lead Audit — Uman Zafar</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>Free Roofing Lead System Audit — Uman Zafar</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #0C0E14;
-    --surface: #13151E;
-    --card: #1A1D2A;
-    --border: #252838;
-    --orange: #FF6B00;
-    --orange-dim: #CC5500;
-    --orange-glow: rgba(255,107,0,0.15);
-    --white: #F0F2FF;
-    --gray: #8B90A8;
-    --gray-light: #B0B5CC;
-    --green: #22C55E;
+    --bg: #0F1E33;
+    --surface: #162944;
+    --card: #1C3252;
+    --border: #2A4568;
+    --orange: #D4A947;
+    --orange-dim: #4A3D1D;
+    --white: #F5F7FA;
+    --grey: #9AAAC0;
+    --green: #10B981;
     --red: #EF4444;
-    --yellow: #F59E0B;
+    --amber: #F59E0B;
   }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--white);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* HERO */
-  .hero {
-    width: 100%;
-    background: linear-gradient(135deg, #0C0E14 0%, #13151E 60%, #1a1230 100%);
-    border-bottom: 1px solid var(--border);
-    padding: 60px 24px 48px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -80px; left: 50%; transform: translateX(-50%);
-    width: 600px; height: 300px;
-    background: radial-gradient(ellipse, rgba(255,107,0,0.12) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--orange-glow);
-    border: 1px solid rgba(255,107,0,0.3);
-    color: var(--orange);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 6px 16px;
-    border-radius: 100px;
-    margin-bottom: 24px;
-  }
-  .badge::before { content: '●'; font-size: 8px; }
-  .hero h1 {
-    font-size: clamp(28px, 5vw, 52px);
-    font-weight: 900;
-    line-height: 1.1;
-    color: var(--white);
-    margin-bottom: 16px;
-    letter-spacing: -1px;
-  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--white); font-family: "DM Sans", sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body::before { content: ""; position: fixed; inset: 0; background-image: linear-gradient(rgba(212,169,71,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(212,169,71,0.03) 1px, transparent 1px); background-size: 54px 54px; pointer-events: none; z-index: 0; }
+  .container { max-width: 720px; margin: 0 auto; padding: 0 20px 60px; position: relative; z-index: 1; }
+  .hero { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--orange); padding: 48px 40px 40px; margin: 40px 0 32px; position: relative; overflow: hidden; }
+  .hero::after { content: ""; position: absolute; bottom: -60px; right: -60px; width: 200px; height: 200px; border: 40px solid rgba(212,169,71,0.06); border-radius: 50%; }
+  .badge { display: inline-block; background: var(--orange-dim); color: var(--orange); font-family: "Barlow Condensed", sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; padding: 5px 14px; text-transform: uppercase; margin-bottom: 20px; }
+  .hero h1 { font-family: "Barlow Condensed", sans-serif; font-size: clamp(36px, 6vw, 56px); font-weight: 900; line-height: 1; text-transform: uppercase; margin-bottom: 8px; }
   .hero h1 span { color: var(--orange); }
-  .hero p {
-    font-size: clamp(15px, 2vw, 18px);
-    color: var(--gray-light);
-    max-width: 520px;
-    margin: 0 auto 32px;
-    line-height: 1.6;
-  }
-  .hero-stats {
-    display: flex;
-    justify-content: center;
-    gap: 32px;
-    flex-wrap: wrap;
-  }
-  .stat {
-    text-align: center;
-  }
-  .stat-num {
-    font-size: 28px;
-    font-weight: 900;
-    color: var(--orange);
-    display: block;
-  }
-  .stat-label {
-    font-size: 12px;
-    color: var(--gray);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  /* MAIN */
-  .main {
-    width: 100%;
-    max-width: 680px;
-    padding: 48px 24px 80px;
-  }
-
-  /* PROGRESS */
-  .progress-wrap {
-    margin-bottom: 40px;
-  }
-  .progress-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  .progress-label {
-    font-size: 13px;
-    color: var(--gray);
-    font-weight: 500;
-  }
-  .progress-count {
-    font-size: 13px;
-    color: var(--orange);
-    font-weight: 700;
-  }
-  .progress-bar {
-    width: 100%;
-    height: 4px;
-    background: var(--border);
-    border-radius: 100px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--orange-dim), var(--orange));
-    border-radius: 100px;
-    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
-    width: 0%;
-  }
-
-  /* QUESTION CARD */
-  .question-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 36px;
-    display: none;
-    animation: slideIn 0.35s ease;
-  }
-  .question-card.active { display: block; }
-
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .q-category {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 12px;
-  }
-  .q-number {
-    font-size: 13px;
-    color: var(--gray);
-    margin-bottom: 8px;
-    font-weight: 500;
-  }
-  .q-text {
-    font-size: clamp(18px, 3vw, 24px);
-    font-weight: 800;
-    line-height: 1.3;
-    color: var(--white);
-    margin-bottom: 10px;
-    letter-spacing: -0.3px;
-  }
-  .q-sub {
-    font-size: 14px;
-    color: var(--gray);
-    margin-bottom: 28px;
-    line-height: 1.5;
-  }
-
-  /* OPTIONS */
-  .options { display: flex; flex-direction: column; gap: 12px; }
-  .option {
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    padding: 16px 20px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    text-align: left;
-  }
-  .option:hover {
-    border-color: var(--orange);
-    background: var(--orange-glow);
-  }
-  .option.selected {
-    border-color: var(--orange);
-    background: var(--orange-glow);
-  }
-  .option-dot {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 2px solid var(--border);
-    flex-shrink: 0;
-    margin-top: 2px;
-    transition: all 0.2s;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .option.selected .option-dot {
-    background: var(--orange);
-    border-color: var(--orange);
-  }
-  .option.selected .option-dot::after {
-    content: '✓';
-    color: white;
-    font-size: 11px;
-    font-weight: 900;
-  }
-  .option-content {}
-  .option-label {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 2px;
-  }
-  .option-desc {
-    font-size: 13px;
-    color: var(--gray);
-    line-height: 1.4;
-  }
-
-  /* NEXT BUTTON */
-  .next-btn {
-    width: 100%;
-    margin-top: 24px;
-    padding: 16px;
-    background: var(--orange);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: all 0.2s;
-    letter-spacing: 0.2px;
-    opacity: 0.4;
-    pointer-events: none;
-  }
-  .next-btn.enabled {
-    opacity: 1;
-    pointer-events: all;
-  }
-  .next-btn.enabled:hover {
-    background: var(--orange-dim);
-    transform: translateY(-1px);
-  }
-
-  /* LEAD CAPTURE */
-  .capture-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 36px;
-    display: none;
-    animation: slideIn 0.35s ease;
-  }
-  .capture-card.active { display: block; }
-  .capture-card h2 {
-    font-size: 26px;
-    font-weight: 900;
-    margin-bottom: 8px;
-    letter-spacing: -0.5px;
-  }
-  .capture-card h2 span { color: var(--orange); }
-  .capture-card p {
-    font-size: 15px;
-    color: var(--gray-light);
-    margin-bottom: 28px;
-    line-height: 1.5;
-  }
-  .form-group { margin-bottom: 16px; }
-  .form-group label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--gray-light);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .form-group input {
-    width: 100%;
-    padding: 14px 16px;
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    color: var(--white);
-    font-size: 15px;
-    font-family: 'Inter', sans-serif;
-    outline: none;
-    transition: border-color 0.2s;
-  }
+  .hero p { color: var(--grey); font-size: 15px; line-height: 1.6; max-width: 480px; margin-top: 16px; }
+  .by-line { margin-top: 24px; display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .by-line .avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--orange); flex-shrink: 0; }
+  .by-line .name { font-weight: 500; font-size: 14px; }
+  .by-line .title { color: var(--grey); font-size: 12px; margin-top: 2px; }
+  .score-guide { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-bottom: 32px; border: 1px solid var(--border); }
+  .score-item { background: var(--card); padding: 16px; text-align: center; }
+  .score-item .pts { font-family: "Barlow Condensed", sans-serif; font-size: 28px; font-weight: 900; display: block; }
+  .score-item .label { font-size: 11px; color: var(--grey); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+  .score-item:nth-child(1) .pts { color: var(--green); }
+  .score-item:nth-child(2) .pts { color: var(--amber); }
+  .score-item:nth-child(3) .pts { color: var(--red); }
+  .section-title { font-family: "Barlow Condensed", sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-title::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+  .question-card { background: var(--card); border: 1px solid var(--border); margin-bottom: 12px; transition: border-color 0.2s; animation: fadeUp 0.4s ease both; }
+  .question-card:hover { border-color: rgba(212,169,71,0.3); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .q-header { display: flex; align-items: flex-start; gap: 16px; padding: 20px 20px 16px; border-bottom: 1px solid var(--border); }
+  .q-num { font-family: "Barlow Condensed", sans-serif; font-size: 28px; font-weight: 900; color: var(--orange); line-height: 1; flex-shrink: 0; width: 36px; }
+  .q-content { flex: 1; }
+  .q-category { font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--orange); margin-bottom: 6px; }
+  .q-text { font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--white); }
+  .q-hint { font-size: 12px; color: var(--grey); margin-top: 6px; line-height: 1.5; font-style: italic; }
+  .options { padding: 12px 20px 16px; }
+  .option { display: flex; align-items: center; gap: 12px; padding: 10px 14px; margin-bottom: 6px; cursor: pointer; border: 1px solid transparent; transition: all 0.15s; user-select: none; }
+  .option:hover { background: rgba(212,169,71,0.05); border-color: rgba(212,169,71,0.2); }
+  .option input[type="radio"] { display: none; }
+  .option-dot { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 50%; flex-shrink: 0; transition: all 0.15s; position: relative; }
+  .option input:checked ~ .option-dot { border-color: var(--orange); background: var(--orange); }
+  .option input:checked ~ .option-dot::after { content: ""; position: absolute; inset: 3px; background: white; border-radius: 50%; }
+  .option-text { font-size: 13px; color: var(--grey); flex: 1; }
+  .option input:checked ~ .option-dot ~ .option-text { color: var(--white); }
+  .option-pts { font-family: "Barlow Condensed", sans-serif; font-size: 13px; font-weight: 700; color: var(--grey); }
+  .opt-2 .option-pts { color: var(--green); }
+  .opt-1 .option-pts { color: var(--amber); }
+  .opt-0 .option-pts { color: var(--red); }
+  .submit-btn { width: 100%; background: var(--orange); color: #0F1E33; border: none; padding: 18px; font-family: "Barlow Condensed", sans-serif; font-size: 20px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+  .submit-btn:hover { background: #C29635; }
+  .results { display: none; animation: fadeUp 0.5s ease both; }
+  .results.show { display: block; }
+  .email-gate { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--orange); padding: 40px; text-align: center; margin-bottom: 24px; display: none; }
+  .email-gate.show { display: block; }
+  .email-gate h2 { font-family: "Barlow Condensed", sans-serif; font-size: 32px; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; }
+  .email-gate p { color: var(--grey); font-size: 14px; line-height: 1.6; margin-bottom: 28px; max-width: 420px; margin-left: auto; margin-right: auto; }
+  .form-group { margin-bottom: 14px; text-align: left; }
+  .form-group label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
+  .form-group input { width: 100%; background: var(--card); border: 1px solid var(--border); color: var(--white); padding: 14px 16px; font-family: "DM Sans", sans-serif; font-size: 14px; outline: none; transition: border-color 0.2s; }
   .form-group input:focus { border-color: var(--orange); }
-  .form-group input::placeholder { color: var(--gray); }
-  .submit-btn {
-    width: 100%;
-    padding: 16px;
-    background: var(--orange);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 800;
-    cursor: pointer;
-    margin-top: 8px;
-    transition: all 0.2s;
-  }
-  .submit-btn:hover { background: var(--orange-dim); transform: translateY(-1px); }
-  .privacy {
-    text-align: center;
-    font-size: 12px;
-    color: var(--gray);
-    margin-top: 12px;
-  }
-
-  /* RESULTS */
-  .results-card {
-    display: none;
-    animation: slideIn 0.35s ease;
-  }
-  .results-card.active { display: block; }
-
-  .score-hero {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 36px;
-    text-align: center;
-    margin-bottom: 24px;
-    position: relative;
-    overflow: hidden;
-  }
-  .score-hero::before {
-    content: '';
-    position: absolute;
-    top: -60px; left: 50%; transform: translateX(-50%);
-    width: 400px; height: 200px;
-    background: radial-gradient(ellipse, var(--orange-glow) 0%, transparent 70%);
-  }
-  .score-label {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gray);
-    margin-bottom: 16px;
-  }
-  .score-circle {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin: 0 auto 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 4px solid;
-    position: relative;
-  }
-  .score-circle.critical { border-color: var(--red); background: rgba(239,68,68,0.1); }
-  .score-circle.warning { border-color: var(--yellow); background: rgba(245,158,11,0.1); }
-  .score-circle.good { border-color: var(--green); background: rgba(34,197,94,0.1); }
-  .score-num {
-    font-size: 42px;
-    font-weight: 900;
-    line-height: 1;
-  }
-  .score-circle.critical .score-num { color: var(--red); }
-  .score-circle.warning .score-num { color: var(--yellow); }
-  .score-circle.good .score-num { color: var(--green); }
-  .score-max { font-size: 14px; color: var(--gray); }
-  .score-title {
-    font-size: 24px;
-    font-weight: 900;
-    margin-bottom: 8px;
-    letter-spacing: -0.5px;
-  }
-  .score-desc {
-    font-size: 15px;
-    color: var(--gray-light);
-    max-width: 420px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-
-  /* BREAKDOWN */
-  .section-title {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gray);
-    margin-bottom: 16px;
-  }
-
-  .breakdown-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-  .breakdown-item {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-  }
-  .breakdown-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  .breakdown-name {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--white);
-  }
-  .breakdown-score {
-    font-size: 13px;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 100px;
-  }
-  .score-red { background: rgba(239,68,68,0.15); color: var(--red); }
-  .score-yellow { background: rgba(245,158,11,0.15); color: var(--yellow); }
-  .score-green { background: rgba(34,197,94,0.15); color: var(--green); }
-  .breakdown-bar-bg {
-    height: 4px;
-    background: var(--border);
-    border-radius: 100px;
-    overflow: hidden;
-    margin-bottom: 10px;
-  }
-  .breakdown-bar-fill {
-    height: 100%;
-    border-radius: 100px;
-  }
-  .breakdown-insight {
-    font-size: 13px;
-    color: var(--gray-light);
-    line-height: 1.5;
-  }
-
-  /* FIXES */
-  .fixes-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-  .fix-item {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--orange);
-    border-radius: 12px;
-    padding: 20px 20px 20px 24px;
-  }
-  .fix-priority {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 6px;
-  }
-  .fix-title {
-    font-size: 16px;
-    font-weight: 800;
-    color: var(--white);
-    margin-bottom: 6px;
-  }
-  .fix-desc {
-    font-size: 14px;
-    color: var(--gray-light);
-    line-height: 1.5;
-  }
-
-  /* CTA */
-  .cta-card {
-    background: linear-gradient(135deg, #1a1230, #13151E);
-    border: 1px solid rgba(255,107,0,0.3);
-    border-radius: 16px;
-    padding: 36px;
-    text-align: center;
-  }
-  .cta-card h3 {
-    font-size: 24px;
-    font-weight: 900;
-    margin-bottom: 8px;
-    letter-spacing: -0.5px;
-  }
-  .cta-card h3 span { color: var(--orange); }
-  .cta-card p {
-    font-size: 15px;
-    color: var(--gray-light);
-    margin-bottom: 24px;
-    line-height: 1.6;
-  }
-  .cta-btn {
-    display: inline-block;
-    padding: 16px 32px;
-    background: var(--orange);
-    color: white;
-    text-decoration: none;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 800;
-    transition: all 0.2s;
-    margin-bottom: 12px;
-  }
-  .cta-btn:hover { background: var(--orange-dim); transform: translateY(-1px); }
-  .cta-secondary {
-    display: block;
-    font-size: 13px;
-    color: var(--gray);
-    margin-top: 12px;
-  }
-  .cta-secondary a { color: var(--orange); text-decoration: none; }
-
-  /* FOOTER */
-  footer {
-    text-align: center;
-    padding: 24px;
-    font-size: 13px;
-    color: var(--gray);
-    border-top: 1px solid var(--border);
-    width: 100%;
-  }
-
-  @media (max-width: 480px) {
-    .question-card, .capture-card, .score-hero, .cta-card { padding: 24px; }
-    .hero-stats { gap: 20px; }
-  }
+  .form-group input::placeholder { color: var(--grey); }
+  .gate-btn { width: 100%; background: var(--orange); color: #0F1E33; border: none; padding: 16px; font-family: "Barlow Condensed", sans-serif; font-size: 20px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; margin-top: 8px; transition: background 0.2s; }
+  .gate-btn:hover { background: #C29635; }
+  .gate-note { font-size: 11px; color: var(--grey); margin-top: 12px; }
+  .score-display { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--orange); padding: 40px; text-align: center; margin-bottom: 24px; }
+  .score-big { font-family: "Barlow Condensed", sans-serif; font-size: 100px; font-weight: 900; line-height: 1; color: var(--orange); }
+  .score-label { font-size: 14px; color: var(--grey); margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; }
+  .score-verdict { font-family: "Barlow Condensed", sans-serif; font-size: 28px; font-weight: 800; margin-top: 20px; text-transform: uppercase; }
+  .score-desc { color: var(--grey); font-size: 14px; margin-top: 10px; line-height: 1.6; max-width: 440px; margin-left: auto; margin-right: auto; }
+  .result-levels { margin-bottom: 24px; }
+  .level { display: flex; align-items: center; gap: 16px; padding: 16px 20px; border: 1px solid var(--border); margin-bottom: 8px; background: var(--card); }
+  .level.active { border-color: var(--orange); background: rgba(212,169,71,0.08); }
+  .level-range { font-family: "Barlow Condensed", sans-serif; font-size: 20px; font-weight: 900; width: 60px; flex-shrink: 0; }
+  .level-info { flex: 1; }
+  .level-title { font-weight: 600; font-size: 14px; }
+  .level-desc { font-size: 12px; color: var(--grey); margin-top: 3px; }
+  .level-indicator { width: 10px; height: 10px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+  .level.active .level-indicator { background: var(--orange); }
+  .cta-box { background: var(--card); border: 1px solid var(--orange); padding: 32px; text-align: center; }
+  .cta-box h3 { font-family: "Barlow Condensed", sans-serif; font-size: 28px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
+  .cta-box p { color: var(--grey); font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
+  .cta-email { display: inline-block; background: var(--orange); color: #0F1E33; padding: 14px 32px; font-family: "Barlow Condensed", sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0.5px; text-decoration: none; text-transform: uppercase; transition: background 0.2s; }
+  .cta-email:hover { background: #C29635; }
+  .cta-sub { font-size: 12px; color: var(--grey); margin-top: 14px; }
+  .cta-sub a { color: var(--orange); text-decoration: none; }
+  .progress-bar { height: 3px; background: var(--border); margin-bottom: 32px; }
+  .progress-fill { height: 100%; background: var(--orange); transition: width 0.3s ease; width: 0%; }
+  .progress-text { font-size: 12px; color: var(--grey); text-align: right; margin-bottom: 8px; }
+  .sending-msg { display: none; font-size: 12px; color: var(--grey); margin-top: 10px; }
 </style>
 </head>
 <body>
+<div class="container">
 
-<!-- HERO -->
-<div class="hero">
-  <div class="badge">Free Lead Audit</div>
-  <h1>Is Your Roofing Business<br><span>Leaking Jobs Every Month?</span></h1>
-  <p>Answer 12 honest questions about your lead process. Get a personalised report showing exactly where you are losing inspections and what to fix first.</p>
-  <div class="hero-stats">
-    <div class="stat">
-      <span class="stat-num">12</span>
-      <span class="stat-label">Questions</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">3 min</span>
-      <span class="stat-label">To Complete</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">Free</span>
-      <span class="stat-label">No Cost</span>
-    </div>
-  </div>
-</div>
-
-<!-- MAIN -->
-<div class="main">
-
-  <!-- PROGRESS -->
-  <div class="progress-wrap" id="progressWrap">
-    <div class="progress-top">
-      <span class="progress-label">Your Progress</span>
-      <span class="progress-count" id="progressCount">0 of 12</span>
-    </div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill"></div>
+  <div class="hero">
+    <div class="badge">Free Lead System Audit</div>
+    <h1>Is Your Roofing Business <span>Leaking Jobs</span> Every Month?</h1>
+    <p>Answer 10 honest questions about your lead process. Find out exactly where you are losing enquiries and what to fix first.</p>
+    <div class="by-line">
+      <img class="avatar" src="data:image/jpeg;base64,PLACEHOLDER" alt="Uman Zafar">
+      <div>
+        <div class="name">Uman Zafar</div>
+        <div class="title">AI Lead Gen Specialist — Roofing Companies </div>
+      </div>
     </div>
   </div>
 
-  <!-- QUESTIONS -->
-  <div id="questionsContainer">
-
-    <!-- Q1 -->
-    <div class="question-card active" data-q="0">
-      <div class="q-category">📍 Lead Source</div>
-      <div class="q-number">Question 1 of 12</div>
-      <div class="q-text">Where do most of your roofing leads come from right now?</div>
-      <div class="q-sub">Be honest — pick the one that brings in the most enquiries.</div>
-      <div class="options">
-        <div class="option" data-value="0" data-cat="source">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Word of mouth and referrals only</div>
-            <div class="option-desc">Most jobs come from people recommending you</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="source">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Google or Facebook ads — but inconsistent</div>
-            <div class="option-desc">Running ads but results go up and down</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="source">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Checkatrade, MyBuilder, or similar platforms</div>
-            <div class="option-desc">Paying for leads from third-party directories</div>
-          </div>
-        </div>
-        <div class="option" data-value="2" data-cat="source">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Consistent paid ads with a proper funnel</div>
-            <div class="option-desc">Ads running, leads coming in predictably every week</div>
-          </div>
-        </div>
-      </div>
-      <button class="next-btn" onclick="nextQ()">Next Question →</button>
+  <div id="audit-form">
+    <div class="section-title">How to score</div>
+    <div class="score-guide" style="margin-bottom:32px">
+      <div class="score-item"><span class="pts">2</span><div class="label">Fully in place</div></div>
+      <div class="score-item"><span class="pts">1</span><div class="label">Partially works</div></div>
+      <div class="score-item"><span class="pts">0</span><div class="label">Not in place</div></div>
     </div>
-
-    <!-- Q2 -->
-    <div class="question-card" data-q="1">
-      <div class="q-category">⚡ Speed to Lead</div>
-      <div class="q-number">Question 2 of 12</div>
-      <div class="q-text">When a new lead comes in, how quickly does someone actually contact them?</div>
-      <div class="q-sub">Think about what actually happens — not what you aim for.</div>
-      <div class="options">
-        <div class="option" data-value="0" data-cat="speed">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">A few hours or next day</div>
-            <div class="option-desc">Someone gets to it when they have time</div>
-          </div>
-        </div>
-        <div class="option" data-value="0" data-cat="speed">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">30 minutes to an hour</div>
-            <div class="option-desc">Fairly quick but not immediate</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="speed">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Under 10 minutes</div>
-            <div class="option-desc">Team tries to call back fast</div>
-          </div>
-        </div>
-        <div class="option" data-value="2" data-cat="speed">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Under 60 seconds — automated</div>
-            <div class="option-desc">System contacts lead the moment they come in</div>
-          </div>
-        </div>
-      </div>
-      <button class="next-btn" onclick="nextQ()">Next Question →</button>
-    </div>
-
-    <!-- Q3 -->
-    <div class="question-card" data-q="2">
-      <div class="q-category">📞 Follow Up</div>
-      <div class="q-number">Question 3 of 12</div>
-      <div class="q-text">If a lead does not answer the first call, what happens next?</div>
-      <div class="q-sub">Most jobs are lost here — be honest about your current process.</div>
-      <div class="options">
-        <div class="option" data-value="0" data-cat="followup">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">We try once or twice then move on</div>
-            <div class="option-desc">If they don't answer, we assume they are not interested</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="followup">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">We call back a couple of times over a few days</div>
-            <div class="option-desc">Some follow up but no set schedule</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="followup">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">We follow up 3 to 5 times with calls and texts</div>
-            <div class="option-desc">Persistent follow up over a week or two</div>
-          </div>
-        </div>
-        <div class="option" data-value="2" data-cat="followup">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Automated sequence — texts, calls, emails over 14 days</div>
-            <div class="option-desc">System follows up automatically until they respond</div>
-          </div>
-        </div>
-      </div>
-      <button class="next-btn" onclick="nextQ()">Next Question →</button>
-    </div>
-
-    <!-- Q4 -->
-    <div class="question-card" data-q="3">
-      <div class="q-category">🎯 Lead Qualification</div>
-      <div class="q-number">Question 4 of 12</div>
-      <div class="q-text">How do you qualify leads before booking an inspection?</div>
-      <div class="q-sub">Wasted site visits cost you time and money.</div>
-      <div class="options">
-        <div class="option" data-value="0" data-cat="qualify">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">We book everyone who calls or fills a form</div>
-            <div class="option-desc">No filtering — everyone gets a visit</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="qualify">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">We ask a couple of questions on the call</div>
-            <div class="option-desc">Basic check before booking</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="qualify">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">We have a set list of questions we ask every lead</div>
-            <div class="option-desc">Consistent qualifying process</div>
-          </div>
-        </div>
-        <div class="option" data-value="2" data-cat="qualify">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">AI or form pre-qualifies leads before anyone speaks to them</div>
-            <div class="option-desc">Only qualified leads reach the calendar</div>
-          </div>
-        </div>
-      </div>
-      <button class="next-btn" onclick="nextQ()">Next Question →</button>
-    </div>
-
-    <!-- Q5 -->
-    <div class="question-card" data-q="4">
-      <div class="q-category">📅 Booking Process</div>
-      <div class="q-number">Question 5 of 12</div>
-      <div class="q-text">How do homeowners book an inspection with you?</div>
-      <div class="q-sub">Every extra step between interest and booking loses leads.</div>
-      <div class="options">
-        <div class="option" data-value="0" data-cat="booking">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">They call us and we arrange a time manually</div>
-            <div class="option-desc">Back and forth to find a slot</div>
-          </div>
-        </div>
-        <div class="option" data-value="0" data-cat="booking">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">We call them back and book over the phone</div>
-            <div class="option-desc">Depends on someone being available to call</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="booking">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">We send them a link to pick a time</div>
-            <div class="option-desc">Calendar link sent manually after contact</div>
-          </div>
-        </div>
-        <div class="option" data-value="2" data-cat="booking">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Booking is fully automated — they pick a slot immediately</div>
-            <div class="option-desc">Calendar link sent automatically, no human needed</div>
-          </div>
-        </div>
-      </div>
-      <button class="next-btn" onclick="nextQ()">Next Question →</button>
-    </div>
-
-    <!-- Q6 -->
-    <div class="question-card" data-q="5">
-      <div class="q-category">📊 Tracking</div>
-      <div class="q-number">Question 6 of 12</div>
-      <div class="q-text">Do you know your lead-to-booked-inspection conversion rate?</div>
-      <div class="q-sub">You cannot fix what you cannot measure.</div>
-      <div class="options">
-        <div class="option" data-value="0" data-cat="tracking">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">No — we do not track this</div>
-            <div class="option-desc">No data on how many leads become bookings</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="tracking">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Roughly — we have a general idea</div>
-            <div class="option-desc">Not exact but aware of the ballpark</div>
-          </div>
-        </div>
-        <div class="option" data-value="2" data-cat="tracking">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Yes — we track leads, bookings, and show rate</div>
-            <div class="option-desc">Clear data on every stage of the lead journey</div>
-          </div>
-        </div>
-      </div>
-      <button class="next-btn" onclick="nextQ()">Next Question →</button>
-    </div>
-
-    <!-- Q7 -->
-    <div class="question-card" data-q="6">
-      <div class="q-category">🚪 No-Shows</div>
-      <div class="q-number">Question 7 of 12</div>
-      <div class="q-text">What percentage of booked inspections actually show up?</div>
-      <div class="q-sub">No-shows are one of the biggest hidden costs in roofing.</div>
-      <div class="options">
-        <div class="option" data-value="0" data-cat="noshow">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Less than 50% — a lot of no-shows</div>
-            <div class="option-desc">Half or more of bookings do not happen</div>
-          </div>
-        </div>
-        <div class="option" data-value="0" data-cat="noshow">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">50 to 70%</div>
-            <div class="option-desc">Significant number still not showing</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="noshow">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">70 to 85%</div>
-            <div class="option-desc">Decent show rate with some losses</div>
-          </div>
-        </div>
-        <div class="option" data-value="2" data-cat="noshow">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Above 85% — automated reminders in place</div>
-            <div class="option-desc">System sends reminders to reduce no-shows</div>
-          </div>
-        </div>
-      </div>
-      <button class="next-btn" onclick="nextQ()">Next Question →</button>
-    </div>
-
-    <!-- Q8 -->
-    <div class="question-card" data-q="7">
-      <div class="q-category">💬 Lead Nurturing</div>
-      <div class="q-number">Question 8 of 12</div>
-      <div class="q-text">What happens to leads that say "not right now" or go cold?</div>
-      <div class="q-sub">Most roofers lose these permanently. They do not have to.</div>
-      <div class="options">
-        <div class="option" data-value="0" data-cat="nurture">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Nothing — they go cold and we forget them</div>
-            <div class="option-desc">Lost forever once they stop responding</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="nurture">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">We might follow up once more after a few weeks</div>
-            <div class="option-desc">Occasional manual check-in</div>
-          </div>
-        </div>
-        <div class="option" data-value="2" data-cat="nurture">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Automated nurture sequence keeps them warm</div>
-            <div class="option-desc">Regular touchpoints until they are ready to book</div>
-          </div>
-        </div>
-      </div>
-      <button class="next-btn" onclick="nextQ()">Next Question →</button>
-    </div>
-
-    <!-- Q9 -->
-    <div class="question-card" data-q="8">
-      <div class="q-category">⭐ Reviews</div>
-      <div class="q-number">Question 9 of 12</div>
-      <div class="q-text">How many Google reviews does your business have?</div>
-      <div class="q-sub">Reviews directly affect whether homeowners trust you enough to book.</div>
-      <div class="options">
-        <div class="option" data-value="0" data-cat="reviews">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Under 10 reviews</div>
-            <div class="option-desc">Very few reviews — trust gap with homeowners</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="reviews">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">10 to 30 reviews</div>
-            <div class="option-desc">Some social proof but room to grow</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="reviews">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">30 to 75 reviews</div>
-            <div class="option-desc">Solid reputation building</div>
-          </div>
-        </div>
-        <div class="option" data-value="2" data-cat="reviews">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">75 or more reviews</div>
-            <div class="option-desc">Strong social proof that builds instant trust</div>
-          </div>
-        </div>
-      </div>
-      <button class="next-btn" onclick="nextQ()">Next Question →</button>
-    </div>
-
-    <!-- Q10 -->
-    <div class="question-card" data-q="9">
-      <div class="q-category">💰 Ad Spend</div>
-      <div class="q-number">Question 10 of 12</div>
-      <div class="q-text">Are you currently running paid ads for your roofing business?</div>
-      <div class="q-sub">This helps us understand your current lead generation setup.</div>
-      <div class="options">
-        <div class="option" data-value="0" data-cat="ads">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">No ads — relying on organic only</div>
-            <div class="option-desc">No paid spend at all right now</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="ads">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Running ads but not getting good results</div>
-            <div class="option-desc">Spending money but not many bookings coming in</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="ads">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Running ads with some results</div>
-            <div class="option-desc">Getting leads but not as many as expected</div>
-          </div>
-        </div>
-        <div class="option" data-value="2" data-cat="ads">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Running profitable ads consistently</div>
-            <div class="option-desc">Ads working well, leads coming in regularly</div>
-          </div>
-        </div>
-      </div>
-      <button class="next-btn" onclick="nextQ()">Next Question →</button>
-    </div>
-
-    <!-- Q11 -->
-    <div class="question-card" data-q="10">
-      <div class="q-category">🔧 CRM & Systems</div>
-      <div class="q-number">Question 11 of 12</div>
-      <div class="q-text">How do you manage your leads and pipeline right now?</div>
-      <div class="q-sub">A disorganised pipeline means missed opportunities.</div>
-      <div class="options">
-        <div class="option" data-value="0" data-cat="crm">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Phone calls, texts, and memory</div>
-            <div class="option-desc">No system — just keep track mentally or on paper</div>
-          </div>
-        </div>
-        <div class="option" data-value="0" data-cat="crm">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Spreadsheet or notes app</div>
-            <div class="option-desc">Basic tracking but manual and easy to miss things</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="crm">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Basic CRM like HubSpot or similar</div>
-            <div class="option-desc">Some pipeline management in place</div>
-          </div>
-        </div>
-        <div class="option" data-value="2" data-cat="crm">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Full CRM with automation and pipeline stages</div>
-            <div class="option-desc">Every lead tracked, every stage automated</div>
-          </div>
-        </div>
-      </div>
-      <button class="next-btn" onclick="nextQ()">Next Question →</button>
-    </div>
-
-    <!-- Q12 -->
-    <div class="question-card" data-q="11">
-      <div class="q-category">📈 Business Goal</div>
-      <div class="q-number">Question 12 of 12</div>
-      <div class="q-text">What is your biggest priority for the next 90 days?</div>
-      <div class="q-sub">This helps us tailor your report to what matters most right now.</div>
-      <div class="options">
-        <div class="option" data-value="1" data-cat="goal">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Get more leads coming in consistently</div>
-            <div class="option-desc">Need a reliable source of new enquiries</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="goal">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Convert more of the leads I already have</div>
-            <div class="option-desc">Getting leads but too many going cold</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="goal">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Reduce no-shows and wasted site visits</div>
-            <div class="option-desc">Too many bookings that do not show up</div>
-          </div>
-        </div>
-        <div class="option" data-value="1" data-cat="goal">
-          <div class="option-dot"></div>
-          <div class="option-content">
-            <div class="option-label">Build a system so the business runs without me chasing</div>
-            <div class="option-desc">Want automation so I can focus on the actual roofing</div>
-          </div>
-        </div>
-      </div>
-      <button class="next-btn" onclick="nextQ()">Next Question →</button>
-    </div>
-
+    <div class="section-title">The 10 Questions</div>
+    <div class="progress-text" id="progress-text">0 of 10 answered</div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div id="questions"></div>
+    <button class="submit-btn" onclick="showEmailGate()">See My Results</button>
   </div>
 
-  <!-- LEAD CAPTURE -->
-  <div class="capture-card" id="captureCard">
-    <h2>Your audit is <span>ready.</span></h2>
-    <p>Enter your details below to see your personalised report. I will show you exactly where your lead system is leaking and what to fix first.</p>
+  <div class="email-gate" id="email-gate">
+    <h2>One Last Step</h2>
+    <p>Enter your name and email to see your results. I will also send you a personalised breakdown with exactly what to fix first.</p>
     <div class="form-group">
-      <label>Your First Name</label>
-      <input type="text" id="nameInput" placeholder="e.g. James">
+      <label>Your Name</label>
+      <input type="text" id="gate-name" placeholder="e.g. James Smith" required>
     </div>
     <div class="form-group">
       <label>Business Email</label>
-      <input type="email" id="emailInput" placeholder="e.g. james@roofingco.co.uk">
+      <input type="email" id="gate-email" placeholder="e.g. james@roofingco.co.uk" required>
     </div>
     <div class="form-group">
-      <label>Company Name (optional)</label>
-      <input type="text" id="companyInput" placeholder="e.g. Premier Roofing Ltd">
+      <label> Website URL (optional)</label>
+      <input type="text" id="gate-business" placeholder="e.g. ABC Roofing Ltd">
     </div>
-    <button class="submit-btn" onclick="showResults()">Show My Results →</button>
-    <p class="privacy">No spam. No pitch call unless you ask for one. Just your honest results.</p>
+    <button class="gate-btn" onclick="submitGate()">Show My Results</button>
+    <div class="sending-msg" id="sending-msg">Sending your results...</div>
+    <div class="gate-note">No spam. No pitch. Just your results and honest advice.</div>
   </div>
 
-  <!-- RESULTS -->
-  <div class="results-card" id="resultsCard">
-
-    <div class="score-hero">
-      <div class="score-label">Your Lead System Score</div>
-      <div class="score-circle" id="scoreCircle">
-        <span class="score-num" id="scoreNum">0</span>
-        <span class="score-max">/ 24</span>
-      </div>
-      <div class="score-title" id="scoreTitle"></div>
-      <div class="score-desc" id="scoreDesc"></div>
+  <div class="results" id="results">
+    <div class="score-display">
+      <div class="score-big" id="final-score">0</div>
+      <div class="score-label">out of 20 points</div>
+      <div class="score-verdict" id="verdict"></div>
+      <div class="score-desc" id="verdict-desc"></div>
     </div>
-
-    <div class="section-title">Score Breakdown by Area</div>
-    <div class="breakdown-grid" id="breakdownGrid"></div>
-
-    <div class="section-title">Your Top Fixes — In Priority Order</div>
-    <div class="fixes-list" id="fixesList"></div>
-
-    <div class="cta-card">
-      <h3>Want me to fix <span>this for you?</span></h3>
-      <p>I will review your audit results on a free 15-minute call and show you exactly what to change first. No pitch. Just honest advice based on your specific answers.</p>
-      <a href="https://calendar.app.google/H5HLfhcxsNC39a167" class="cta-btn" target="_blank">Book My Free 15-Min Call</a>
-      <span class="cta-secondary">Or connect on LinkedIn — <a href="https://www.linkedin.com/in/umanzafar" target="_blank">Uman Zafar</a></span>
+    <div class="section-title">Score Breakdown</div>
+    <div class="result-levels" id="result-levels"></div>
+    <div class="cta-box">
+      <h3>Ready to Fix Your Lead System?</h3>
+      <p>Book a free 15 minute call. I will look at your audit results and show you exactly what to fix first. No pitch. Just honest advice.</p>
+      <a href="https://calendar.app.google/H5HLfhcxsNC39a167" target="_blank" class="cta-email">Book My Free Call</a>
+      <div class="cta-sub">Or connect on LinkedIn — <a href="https://www.linkedin.com/in/umanzafar" target="_blank">Uman Zafar</a></div>
     </div>
-
   </div>
 
 </div>
 
-<footer>Built by Uman Zafar — AI Lead Gen for UK Roofing Companies</footer>
-
 <script>
-  const TOTAL = 12;
-  let current = 0;
-  let scores = [];
-  let cats = [];
-  let catScores = {};
+const questions = [
+  { num:"01", category:"Response Speed", text:"When a new lead comes in — do you contact them within 5 minutes?", hint:"Leads contacted within 5 minutes are 9x more likely to convert. Most roofing businesses reply hours later.", options:["Yes — automated response fires instantly","Partially — we try but depends on time of day","No — we reply when we get a chance"] },
+  { num:"02", category:"After Hours Coverage", text:"When a lead comes in at 9pm or on weekends — does your system still respond?", hint:"Most homeowners search for services in the evenings and weekends — outside your business hours.", options:["Yes — fully automated 24/7","Partially — someone sometimes checks messages","No — we only respond during business hours"] },
+  { num:"03", category:"Lead Qualification", text:"Do you filter serious homeowners from time-wasters before your team speaks to them?", hint:"Without qualification your team wastes hours chasing people who were just comparing prices.", options:["Yes — leads are qualified automatically before we call","Partially — we ask a few questions manually","No — we speak to every lead that comes in"] },
+  { num:"04", category:"Follow Up Sequence", text:"If a lead does not answer your first call — do you have an automatic follow up that tries again?", hint:"80% of sales happen after the 5th follow up. Most home service businesses stop after one attempt.", options:["Yes — automated SMS and email follow up runs automatically","Partially — we sometimes follow up manually","No — if they don't answer we move on"] },
+  { num:"05", category:"CRM Pipeline", text:"Do you track every lead in a CRM with clear stages from new lead to closed job?", hint:"Without a pipeline you cannot see where leads are dropping off. You cannot fix what you cannot see.", options:["Yes — full CRM with pipeline stages","Partially — we use a spreadsheet or basic system","No — we track leads informally"] },
+  { num:"06", category:"Lead Source Tracking", text:"Do you know exactly which marketing channel is generating your best quality leads?", hint:"If you don't know which source brings the best leads you cannot invest your budget in the right place.", options:["Yes — we track every lead back to its source","Partially — we have a rough idea","No — we are not sure where most leads come from"] },
+  { num:"07", category:"Landing Page Quality", text:"When someone clicks your ad — does your landing page build trust and capture their details?", hint:"A weak landing page wastes your ad budget before the lead even reaches you.", options:["Yes — optimised landing page with clear offer and form","Partially — we have a website but it is basic","No — we send traffic to a general website page"] },
+  { num:"08", category:"Message Personalisation", text:"Does your follow up communication feel personal and relevant to the homeowner specific problem?", hint:"Generic automated messages that sound like templates destroy trust instantly. Homeowners ignore them.", options:["Yes — messages are personalised and feel human","Partially — we try but it is mostly templated","No — we use the same message for everyone"] },
+  { num:"09", category:"Appointment Booking", text:"Can a homeowner book a survey or consultation directly without having to call you first?", hint:"Every extra step between interest and booking costs you leads. Friction kills conversions.", options:["Yes — online booking available 24/7","Partially — we are working on this","No — they have to call us to book"] },
+  { num:"10", category:"Review System", text:"Do you have an automated system that asks happy customers to leave a Google review after every job?", hint:"Homeowners check reviews before contacting any tradesperson. A weak review profile costs you leads before they reach you.", options:["Yes — automated review request goes out after every job","Partially — we sometimes ask manually","No — we rely on customers to leave reviews themselves"] }
+];
 
-  const cards = document.querySelectorAll('.question-card');
+const levels = [
+  { range:"18-20", title:"Strong System", desc:"Your lead system is working well. Small optimisations can push your conversion rate even higher.", min:18, max:20 },
+  { range:"12-17", title:"Room to Grow", desc:"Your system has gaps costing you jobs. Fixing 2 to 3 areas could significantly increase your revenue.", min:12, max:17 },
+  { range:"6-11",  title:"Serious Leaks", desc:"You are losing a significant number of leads every month. A proper system could double your conversion rate.", min:6, max:11 },
+  { range:"0-5",   title:"Critical Issues", desc:"Your current process is costing you serious money. Most of your leads are going to competitors with better systems.", min:0, max:5 }
+];
 
-  function selectOption(card, option) {
-    card.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-    option.classList.add('selected');
-    card.querySelector('.next-btn').classList.add('enabled');
-  }
+let finalScore = 0;
 
-  cards.forEach((card, i) => {
-    card.querySelectorAll('.option').forEach(opt => {
-      opt.addEventListener('click', () => selectOption(card, opt));
-    });
+function buildQuestions() {
+  const container = document.getElementById("questions");
+  questions.forEach((q, qi) => {
+    const card = document.createElement("div");
+    card.className = "question-card";
+    card.style.animationDelay = (qi * 0.05 + 0.1) + "s";
+    const pts = [2,1,0];
+    const optClasses = ["opt-2","opt-1","opt-0"];
+    card.innerHTML = `
+      <div class="q-header">
+        <div class="q-num">${q.num}</div>
+        <div class="q-content">
+          <div class="q-category">${q.category}</div>
+          <div class="q-text">${q.text}</div>
+          <div class="q-hint">${q.hint}</div>
+        </div>
+      </div>
+      <div class="options">
+        ${q.options.map((opt,oi) => `
+          <label class="option ${optClasses[oi]}">
+            <input type="radio" name="q${qi}" value="${pts[oi]}" onchange="updateProgress()">
+            <div class="option-dot"></div>
+            <div class="option-text">${opt}</div>
+            <div class="option-pts">${pts[oi]} pts</div>
+          </label>
+        `).join("")}
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function updateProgress() {
+  const answered = questions.filter((_,i) => document.querySelector(`input[name="q${i}"]:checked`)).length;
+  document.getElementById("progress-text").textContent = `${answered} of 10 answered`;
+  document.getElementById("progress-fill").style.width = (answered/10*100) + "%";
+}
+
+function showEmailGate() {
+  let score = 0;
+  let allAnswered = true;
+  questions.forEach((_,i) => {
+    const checked = document.querySelector(`input[name="q${i}"]:checked`);
+    if (checked) score += parseInt(checked.value);
+    else allAnswered = false;
+  });
+  if (!allAnswered) { alert("Please answer all 10 questions first."); return; }
+  finalScore = score;
+  document.getElementById("audit-form").style.display = "none";
+  const gate = document.getElementById("email-gate");
+  gate.classList.add("show");
+  gate.scrollIntoView({ behavior: "smooth" });
+}
+
+function submitGate() {
+  const name = document.getElementById("gate-name").value.trim();
+  const email = document.getElementById("gate-email").value.trim();
+  const business = document.getElementById("gate-business").value.trim();
+
+  if (!name || !email) { alert("Please enter your name and email to see your results."); return; }
+
+  const level = levels.find(l => finalScore >= l.min && finalScore <= l.max);
+
+  document.getElementById("sending-msg").style.display = "block";
+
+  fetch("https://script.google.com/macros/s/AKfycbxi9ZgQK43wOfdtq52lc5fnvQJJ-M4PlZoYKUpgKBEIUVvM9V3yxmcCWfn-dMjvo9lx/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      name: name,
+      email: email,
+      business: business || "Not provided",
+      score: finalScore + "/20",
+      verdict: level.title
+    })
+  }).finally(() => {
+    showResults(level);
+  });
+}
+
+function showResults(level) {
+  document.getElementById("email-gate").style.display = "none";
+  document.getElementById("final-score").textContent = finalScore;
+  document.getElementById("verdict").textContent = level.title;
+  document.getElementById("verdict-desc").textContent = level.desc;
+
+  const levelsContainer = document.getElementById("result-levels");
+  levelsContainer.innerHTML = "";
+
+  levels.forEach(l => {
+    const div = document.createElement("div");
+    div.className = "level" + (l === level ? " active" : "");
+    div.innerHTML = `
+      <div class="level-range">${l.range}</div>
+      <div class="level-info">
+        <div class="level-title">${l.title}</div>
+        <div class="level-desc">${l.desc}</div>
+      </div>
+      <div class="level-indicator"></div>`;
+    levelsContainer.appendChild(div);
   });
 
-  function updateProgress() {
-    const pct = (current / TOTAL) * 100;
-    document.getElementById('progressFill').style.width = pct + '%';
-    document.getElementById('progressCount').textContent = current + ' of ' + TOTAL;
-  }
+  const results = document.getElementById("results");
+  results.classList.add("show");
+  results.scrollIntoView({ behavior: "smooth" });
+}
 
-  function nextQ() {
-    const card = cards[current];
-    const selected = card.querySelector('.option.selected');
-    if (!selected) return;
-
-    const val = parseInt(selected.dataset.value);
-    const cat = selected.dataset.cat;
-    scores.push(val);
-    cats.push(cat);
-    catScores[cat] = (catScores[cat] || 0) + val;
-
-    card.classList.remove('active');
-    current++;
-    updateProgress();
-
-    if (current < TOTAL) {
-      cards[current].classList.add('active');
-    } else {
-      document.getElementById('progressWrap').style.display = 'none';
-      document.getElementById('questionsContainer').style.display = 'none';
-      document.getElementById('captureCard').classList.add('active');
-    }
-  }
-
-  function showResults() {
-    const name = document.getElementById('nameInput').value.trim() || 'there';
-    document.getElementById('captureCard').classList.remove('active');
-
-    const total = scores.reduce((a, b) => a + b, 0);
-    const max = 24;
-    const pct = Math.round((total / max) * 100);
-
-    const circle = document.getElementById('scoreCircle');
-    const scoreNum = document.getElementById('scoreNum');
-    const scoreTitle = document.getElementById('scoreTitle');
-    const scoreDesc = document.getElementById('scoreDesc');
-
-    scoreNum.textContent = total;
-
-    if (pct <= 40) {
-      circle.className = 'score-circle critical';
-      scoreTitle.textContent = 'Critical — Your Business is Leaking Jobs Daily';
-      scoreDesc.textContent = 'Hi ' + name + ', your lead system has serious gaps. Based on your answers, a significant number of homeowners who enquire are never hearing back fast enough — and booking with whoever answers first.';
-    } else if (pct <= 70) {
-      circle.className = 'score-circle warning';
-      scoreTitle.textContent = 'Needs Work — You Are Losing More Than You Realise';
-      scoreDesc.textContent = 'Hi ' + name + ', you have some systems in place but there are clear gaps costing you bookings. The good news is these are fixable without starting from scratch.';
-    } else {
-      circle.className = 'score-circle good';
-      scoreTitle.textContent = 'Strong — A Few Tweaks Could Add Real Revenue';
-      scoreDesc.textContent = 'Hi ' + name + ', your lead system is above average. A few targeted improvements could push your booking rate significantly higher without spending more on ads.';
-    }
-
-    // BREAKDOWN
-    const areas = [
-      { key: 'source', label: 'Lead Generation', max: 2 },
-      { key: 'speed', label: 'Speed to Lead', max: 2 },
-      { key: 'followup', label: 'Follow Up Process', max: 2 },
-      { key: 'qualify', label: 'Lead Qualification', max: 2 },
-      { key: 'booking', label: 'Booking System', max: 2 },
-      { key: 'tracking', label: 'Tracking & Data', max: 2 },
-      { key: 'noshow', label: 'No-Show Rate', max: 2 },
-      { key: 'nurture', label: 'Lead Nurturing', max: 2 },
-      { key: 'reviews', label: 'Social Proof', max: 2 },
-      { key: 'ads', label: 'Paid Advertising', max: 2 },
-      { key: 'crm', label: 'CRM & Pipeline', max: 2 },
-    ];
-
-    const insights = {
-      source: { 0: 'Relying on referrals alone makes revenue unpredictable. One slow month can become a crisis.', 1: 'Inconsistent ads or directories mean feast-or-famine income. A proper funnel fixes this.', 2: 'Strong. Predictable lead flow is the foundation of a stable roofing business.' },
-      speed: { 0: 'This is your biggest leak. Leads called back hours later are already gone. Fix this first.', 1: 'You are losing jobs to whoever answers first. Under 5 minutes is the target.', 2: 'Excellent. Sub-60-second response is a serious competitive advantage.' },
-      followup: { 0: 'Giving up after one attempt loses you 70% of winnable jobs. Most leads need 4 to 6 touchpoints.', 1: 'Some follow up is better than none but without a system you are still missing leads.', 2: 'Automated follow up sequences are one of the highest-ROI changes you can make.' },
-      qualify: { 0: 'Booking every lead wastes your time on tyre kickers. Pre-qualification saves you days per month.', 1: 'Consistent qualifying questions would reduce wasted site visits significantly.', 2: 'Good. Filtering leads before the visit protects your most valuable resource — time.' },
-      booking: { 0: 'Manual booking creates friction and delays. Every extra step loses a percentage of interested leads.', 1: 'Sending calendar links manually is a step in the right direction.', 2: 'Fully automated booking is a significant advantage — fewer lost leads, no manual admin.' },
-      tracking: { 0: 'Without data you cannot improve. You do not know if the problem is leads, speed, or follow up.', 1: 'Rough tracking is better than nothing. Exact numbers would show you where to focus.', 2: 'Good. Data-driven decisions separate growing businesses from stuck ones.' },
-      noshow: { 0: 'High no-show rates are expensive. Automated reminders via SMS can cut this by 40 to 60%.', 1: 'There is room to reduce no-shows with a simple automated reminder sequence.', 2: 'Strong show rate. Automated reminders are clearly working.' },
-      nurture: { 0: 'Cold leads are not dead leads. Up to 30% of ignored leads would book if nurtured properly over 90 days.', 1: 'Occasional follow up is better than nothing but a system would recover many more.', 2: 'Automated nurturing is rare in roofing and gives you a real edge over competitors.' },
-      reviews: { 0: 'Under 10 reviews creates a trust gap. Homeowners compare you with competitors who have 50 or 100.', 1: 'Decent start. Actively requesting reviews after every job would accelerate this.', 2: 'Strong social proof. This directly increases conversion from ad click to booking.' },
-      ads: { 0: 'No ads means no predictable pipeline. Even a small ad budget with the right system changes everything.', 1: 'Ads without the right backend system waste most of the budget. The backend is where the job is won or lost.', 2: 'Good. The system behind the ads now determines how many of those leads actually book.' },
-      crm: { 0: 'No CRM means leads fall through the cracks daily. Even a basic system would recover significant revenue.', 1: 'A basic CRM is a good start but without automation you are still doing too much manually.', 2: 'Strong. A well-used CRM with automation is one of the clearest signs of a scalable operation.' },
-    };
-
-    const grid = document.getElementById('breakdownGrid');
-    grid.innerHTML = '';
-
-    areas.forEach(area => {
-      const s = catScores[area.key] || 0;
-      const barPct = Math.round((s / area.max) * 100);
-      let cls, label, barColor;
-      if (s === 0) { cls = 'score-red'; label = 'Critical'; barColor = '#EF4444'; }
-      else if (s === 1) { cls = 'score-yellow'; label = 'Needs Work'; barColor = '#F59E0B'; }
-      else { cls = 'score-green'; label = 'Good'; barColor = '#22C55E'; }
-
-      const insight = insights[area.key]?.[s] || '';
-
-      grid.innerHTML += `
-        <div class="breakdown-item">
-          <div class="breakdown-top">
-            <div class="breakdown-name">${area.label}</div>
-            <div class="breakdown-score ${cls}">${label}</div>
-          </div>
-          <div class="breakdown-bar-bg">
-            <div class="breakdown-bar-fill" style="width:${barPct}%;background:${barColor};"></div>
-          </div>
-          <div class="breakdown-insight">${insight}</div>
-        </div>`;
-    });
-
-    // FIXES
-    const fixMap = {
-      speed: { title: 'Fix Your Response Time First', desc: 'Set up an automated text that goes out within 60 seconds of every form submission. This single change can increase your booking rate by 30 to 50%. If your team is on a roof, the system contacts the lead so you do not have to.' },
-      followup: { title: 'Build a Follow Up Sequence', desc: 'Most leads need 4 to 6 touchpoints before booking. Create a 14-day sequence of texts and calls that goes out automatically when a lead does not respond. Stop giving up after one or two attempts.' },
-      noshow: { title: 'Reduce No-Shows With Automated Reminders', desc: 'Send automated SMS reminders 24 hours and 2 hours before every booked inspection. This alone can cut no-shows by 40 to 60% and saves you hours of wasted travel every month.' },
-      nurture: { title: 'Stop Letting Cold Leads Die', desc: 'Set up a 90-day nurture sequence for leads that say not right now. Regular touchpoints keep you top of mind so when they are ready, they call you — not whoever they can find on Google.' },
-      crm: { title: 'Get a Proper CRM In Place', desc: 'Without a CRM you are losing leads to disorganisation. A basic pipeline with automated stages means no lead ever falls through the cracks again.' },
-      booking: { title: 'Automate Your Booking Process', desc: 'Send an automated calendar link the moment a lead qualifies. Remove the back and forth. Every extra step between interest and booking costs you a percentage of enquiries.' },
-      tracking: { title: 'Start Tracking Your Numbers', desc: 'You cannot improve what you do not measure. Start tracking leads in, leads contacted, bookings made, and shows. This data tells you exactly where to focus and where the money is leaking.' },
-      source: { title: 'Add a Predictable Lead Source', desc: 'Referrals and word of mouth are unreliable. A Meta Ads campaign with the right offer and targeting can add a consistent flow of homeowner enquiries every week without relying on someone else to recommend you.' },
-      qualify: { title: 'Pre-Qualify Before You Book', desc: 'Three questions before every booking: what is the issue, how urgent, are they the homeowner. This alone cuts wasted site visits significantly and keeps your calendar full of real jobs.' },
-      reviews: { title: 'Build Your Review Count Systematically', desc: 'After every completed job, send an automated text asking for a Google review. Getting from 10 to 50 reviews has a direct impact on how many homeowners trust you enough to book.' },
-      ads: { title: 'Fix the Backend Before Spending More on Ads', desc: 'If your ads are not working, the problem is usually not the ad. It is what happens after the click. Fix your speed to lead, follow up, and booking process first — then your ad spend starts working.' },
-    };
-
-    const weakAreas = areas
-      .filter(a => (catScores[a.key] || 0) < 2)
-      .sort((a, b) => (catScores[a.key] || 0) - (catScores[b.key] || 0))
-      .slice(0, 4);
-
-    const fixesList = document.getElementById('fixesList');
-    fixesList.innerHTML = '';
-    weakAreas.forEach((area, i) => {
-      const fix = fixMap[area.key];
-      if (!fix) return;
-      const priority = i === 0 ? 'Fix This First' : i === 1 ? 'Fix This Second' : 'Fix This Next';
-      fixesList.innerHTML += `
-        <div class="fix-item">
-          <div class="fix-priority">${priority}</div>
-          <div class="fix-title">${fix.title}</div>
-          <div class="fix-desc">${fix.desc}</div>
-        </div>`;
-    });
-
-    document.getElementById('resultsCard').classList.add('active');
-  }
-
-  updateProgress();
+buildQuestions();
 </script>
 </body>
 </html>
